@@ -7,11 +7,11 @@ import "./ICryptoDevs.sol";
 
 contract CryptoDevToken is ERC20, Ownable {
 
-    uint256 public constant TOKEN_PRICE = 0.001 ether;
+    uint256 public constant tokenPrice = 0.001 ether;
 
-    uint public constant TOKEN_PER_NFT = 10 * 10**18;
+    uint public constant tokenPerNft = 10 * 10**18;
 
-    uint public constant MAX_TOTAL_SUPPLY = 10000 * 10**18;
+    uint public constant maxTotalSupply = 10000 * 10**18;
 
     ICryptoDevs CryptoDevNFT;
 
@@ -23,13 +23,13 @@ contract CryptoDevToken is ERC20, Ownable {
 
     function mint(uint256 amount) public payable {
         
-        uint _requiredAmountPrice = TOKEN_PRICE * amount;
+        uint _requiredAmountPrice = tokenPrice * amount;
         
         require(msg.value >= _requiredAmountPrice, "Ether sent for the transaction is incomplete");
 
         uint256 amountOfTokenInDecimal = amount * 10**18;
 
-        require((totalSupply() + amountOfTokenInDecimal) <= MAX_TOTAL_SUPPLY, "Youve exceed the maximum token available");
+        require((totalSupply() + amountOfTokenInDecimal) <= maxTotalSupply, "Youve exceed the maximum token available");
 
         _mint(msg.sender, amountOfTokenInDecimal);
     }
@@ -57,7 +57,7 @@ contract CryptoDevToken is ERC20, Ownable {
 
         require(amount > 0, "You have already claimed all the NFT free tokens");
         
-        _mint(sender, amount * TOKEN_PER_NFT);  
+        _mint(sender, amount * tokenPerNft);  
    
     }
 
